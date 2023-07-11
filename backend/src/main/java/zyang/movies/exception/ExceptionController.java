@@ -11,4 +11,9 @@ public class ExceptionController {
     public ResponseEntity<Object> handlerNotFound(EntityNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = UserExistsException.class)
+    public ResponseEntity<Object> handlerUserExists(UserExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
 }
