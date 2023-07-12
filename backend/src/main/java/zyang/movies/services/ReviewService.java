@@ -1,4 +1,4 @@
-package zyang.movies.review;
+package zyang.movies.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -6,8 +6,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import zyang.movies.exception.EntityNotFoundException;
-import zyang.movies.movie.Movie;
-import zyang.movies.movie.MovieRepository;
+import zyang.movies.models.Movie;
+import zyang.movies.repositories.MovieRepository;
+import zyang.movies.models.Review;
+import zyang.movies.repositories.ReviewRepository;
 
 import java.util.Optional;
 

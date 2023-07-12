@@ -1,8 +1,10 @@
-package zyang.movies.movie;
+package zyang.movies.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zyang.movies.exception.EntityNotFoundException;
+import zyang.movies.models.Movie;
+import zyang.movies.repositories.MovieRepository;
 
 import java.util.List;
 import java.util.Optional;

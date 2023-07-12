@@ -1,4 +1,4 @@
-package zyang.movies.review;
+package zyang.movies.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import zyang.movies.movie.Movie;
-import zyang.movies.movie.MovieService;
+import zyang.movies.services.MovieService;
+import zyang.movies.models.Review;
+import zyang.movies.services.ReviewService;
 
 import java.util.Map;
 import java.util.Optional;

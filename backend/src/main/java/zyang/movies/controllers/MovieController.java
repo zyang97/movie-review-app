@@ -1,9 +1,11 @@
-package zyang.movies.movie;
+package zyang.movies.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import zyang.movies.models.Movie;
+import zyang.movies.services.MovieService;
 
 import java.util.List;
 import java.util.Optional;

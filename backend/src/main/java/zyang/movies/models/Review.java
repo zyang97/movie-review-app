@@ -1,4 +1,4 @@
-package zyang.movies.review;
+package zyang.movies.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
