@@ -1,0 +1,13 @@
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form {
+    display: -ms-grid;
+    display: grid;
+    margin: 0;
+    width: 433px;
+    align-items: center;
+}

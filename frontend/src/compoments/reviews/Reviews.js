@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react';
 import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
-import ReviewForm from '../reviewForm/ReviewForm';
+import ReviewForm from './ReviewForm';
 
 import React from 'react'
 
@@ -16,29 +16,22 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
         getMovieData(movieId);
     },[])
 
-    const addReview = async (e) =>{
+
+
+    async function addReview() {
         e.preventDefault();
 
-        const rev = revText.current;
+        const review = reviewText.current;
 
-        try
-        {
-            const response = await api.post("/api/v1/reviews",{reviewBody:rev.value,imdbId:movieId});
-
-            const updatedReviews = [...reviews, {body:rev.value}];
-    
-            rev.value = "";
-    
-            setReviews(updatedReviews);
-        }
-        catch(err)
-        {
-            console.error(err);
-        }
-        
-
-
-
+        api.post('/api/v1/reviews', {reviewBody:rev.value,imdbId:movieId}).then((res) => {
+            try {
+                const updatedReviews = [...reviews, {body:rev.value}];
+                rev.value = "";
+                setReviews(updatedReviews);
+            } catch (err) {
+                console.error(err);
+            }
+        })
     }
 
   return (

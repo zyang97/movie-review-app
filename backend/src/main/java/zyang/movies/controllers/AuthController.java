@@ -17,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class AuthController {
         // Find user from database.
         Optional<User> user = repository.findUserByUsername(username);
         if (user.isEmpty()) {
-            throw new EntityNotFoundException(User.class, "username", username);
+            return new SaResult(HttpStatus.NOT_FOUND.value(), "user does not exist", null);
         }
 
         // Matching username and password.
