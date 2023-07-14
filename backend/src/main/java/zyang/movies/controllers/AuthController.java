@@ -29,7 +29,14 @@ public class AuthController {
     @PostMapping("/register")
     public SaResult register(@RequestBody Map<String, String> payload) {
         Optional<User> user = service.createuser(payload.get("username"), payload.get("password"), payload.get("email"));
-        return new SaResult(SaResult.CODE_SUCCESS, "registered", user);
+        return new SaResult(SaResult.CODE_SUCCESS, "registered", user.get().getId().toString());
+    }
+
+    @RequestMapping("/profile")
+    public SaResult register() {
+        Object userId = StpUtil.getLoginId();
+        System.out.println("login id: " + userId.toString());
+        return new SaResult(HttpStatus.OK.value(), "get profile success", userId);
     }
 
     @PostMapping("/login")
@@ -44,11 +51,26 @@ public class AuthController {
 
         // Matching username and password.
         if (user.get().getUsername().equals(username) && user.get().getPassword().equals(password)) {
-            StpUtil.login(user.get().getId().toString());
-            return SaResult.ok("login success");
+            String userId = user.get().getId().toString();
+            StpUtil.login(userId);
+            return new SaResult(SaResult.CODE_SUCCESS, "login success", userId);
         }
         return SaResult.error("login failed");
     }
+
+    @RequestMapping("/isLogin/{userId}")
+    public SaResult checkLogin(@PathVariable String userId) {
+        StpUtil.isLogin(userId);
+        return SaResult.ok("check login success");
+    }
+
+    @RequestMapping("/logout/{userId}")
+    public SaResult logout(@PathVariable String userId) {
+        StpUtil.logout(userId);
+        System.out.println("is logedin in：" + StpUtil.isLogin());
+        return SaResult.ok("logout success");
+    }
+
 
 
 }

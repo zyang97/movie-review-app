@@ -1,12 +1,15 @@
-import {useEffect, useRef} from 'react';
+import {useEffect, useRef, useContext} from 'react';
 import api from '../../api/axiosConfig';
 import {useParams} from 'react-router-dom';
 import {Container, Row, Col} from 'react-bootstrap';
 import ReviewForm from './ReviewForm';
+import { UserContext } from "../userContext/UserContext";
 
 import React from 'react'
 
 const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
+
+    const {loggedin} = useContext(UserContext);
 
     const revText = useRef();
     let params = useParams();
@@ -15,8 +18,6 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
     useEffect(()=>{
         getMovieData(movieId);
     },[])
-
-
 
     async function addReview() {
         e.preventDefault();
@@ -41,7 +42,14 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
                 <img src={movie?.poster} alt="" />
             </Col>
             <Col>
-                <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a review?" />  
+                {
+                    loggedin &&
+                    <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a review?" />  
+                }
+                {
+                    !loggedin &&
+                    <h5>Login first to write a review!</h5>
+                }
                 <br/>
                 <div className='border-bottom mb-4'>
                     <h3>Reviews</h3>

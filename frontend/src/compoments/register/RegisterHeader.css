@@ -1,0 +1,6 @@
+.RegisterTitle {
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    margin-bottom: auto;
+}
