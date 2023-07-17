@@ -9,9 +9,9 @@ import React from 'react'
 
 const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
 
-    const {loggedin} = useContext(UserContext);
+    const {loggedin, loggedinUsername} = useContext(UserContext);
 
-    const revText = useRef();
+    const reviewText = useRef();
     let params = useParams();
     const movieId = params.movieId;
 
@@ -19,20 +19,27 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
         getMovieData(movieId);
     },[])
 
-    async function addReview() {
+    async function addReview(e) {
         e.preventDefault();
+
+        console.log('reviewText', reviewText);
 
         const review = reviewText.current;
 
-        api.post('/api/v1/reviews', {reviewBody:rev.value,imdbId:movieId}).then((res) => {
-            try {
-                const updatedReviews = [...reviews, {body:rev.value}];
-                rev.value = "";
-                setReviews(updatedReviews);
-            } catch (err) {
-                console.error(err);
-            }
-        })
+        console.log('review', review);
+
+        const res = await api.post(
+            '/api/v1/reviews', 
+            {owner: loggedinUsername, reviewBody:review.value, imdbId:movieId}
+        );
+
+        try {
+            const updatedReviews = [...reviews, {body:review.value}];
+            review.value = "";
+            setReviews(updatedReviews);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
   return (
@@ -44,7 +51,7 @@ const Reviews = ({getMovieData, movie, reviews, setReviews}) => {
             <Col>
                 {
                     loggedin &&
-                    <ReviewForm handleSubmit={addReview} revText={revText} labelText = "Write a review?" />  
+                    <ReviewForm handleSubmit={addReview} reviewText={reviewText} labelText = "Write a review?" />  
                 }
                 {
                     !loggedin &&

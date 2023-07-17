@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 @Document(collection = "reviews")
 @Data
@@ -14,9 +15,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Review {
     @Id
     private ObjectId id;
+    private String owner;
     private String body;
 
-    public Review(String body) {
+    public Review(String owner, String body) {
         this.body = body;
+        this.owner = owner;
     }
 }

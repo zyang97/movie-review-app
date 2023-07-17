@@ -36,7 +36,7 @@ export default function Header() {
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg" >
-            <Navbar.Brand className="ms-4" href="/" style={{"color":'gold'}}>
+            <Navbar.Brand className="ms-4" style={{"color":'gold'}}>
                 <FontAwesomeIcon icon ={faVideoSlash}/>Gold
             </Navbar.Brand>
             <Nav className="me-auto my-2 my-lg-0" style={{maxHeight: '100px'}} navbarScroll>

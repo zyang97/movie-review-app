@@ -25,7 +25,7 @@ public class ReviewService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Optional<Review> createReview(String reviewBody, String imdbId) {
+    public Optional<Review> createReview(String owner, String reviewBody, String imdbId) {
 
         // Check movie existence.
         Optional<Movie> movie =  movieRepository.findMovieByImdbId(imdbId);
@@ -34,7 +34,7 @@ public class ReviewService {
         }
 
         // Create review.
-        Review review = reviewRepository.insert(new Review(reviewBody));
+        Review review = reviewRepository.insert(new Review(owner, reviewBody));
         mongoTemplate.update(Movie.class)
                 .matching(Criteria.where("imdbId").is(imdbId))
                 .apply(new Update().push("reviews").value(review))

@@ -25,7 +25,7 @@ public class ReviewController {
     public ResponseEntity<Optional<Review>> createReview(@RequestBody Map<String, String> payload) {
 
         return new ResponseEntity<Optional<Review>>(
-                reviewService.createReview(payload.get("reviewBody"), payload.get("imdbId")),
+                reviewService.createReview(payload.get("owner"), payload.get("reviewBody"), payload.get("imdbId")),
                 HttpStatus.CREATED
         );
     }
